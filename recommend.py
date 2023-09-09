@@ -1,7 +1,8 @@
 from gensim.models.doc2vec import Doc2Vec
 import pickle
+import argparse
 
-def get_most_similar_docs(test_data, model_path):
+def get_most_similar_docs(test_data, model_path = './homework_6/models/doc2vec.model'):
    # Load the Doc2Vec model
    model = Doc2Vec.load(model_path)
 
@@ -26,3 +27,15 @@ def get_most_similar_docs(test_data, model_path):
 
 test_data = 'exotic yellow spice note meet lean lime pith light crisp nose old vine expression historic winery . meyer lemon rind juice show brightly palate grippy chalkiness complement rich lemon curd flavor'
 get_most_similar_docs(test_data, './homework_6/models/doc2vec.model')
+
+def main():
+    parser = argparse.ArgumentParser(description='Find most similar wines using Doc2Vec')
+    parser.add_argument('test_data', type=str, help='Twine description as a string')
+    parser.add_argument('--model_path', type=str, default='./homework_6/models/doc2vec.model', help='Path to the Doc2Vec model')
+
+    args = parser.parse_args()
+
+    get_most_similar_docs(args.test_data, args.model_path)
+
+if __name__ == '__main__':
+    main()
